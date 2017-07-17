@@ -60,19 +60,16 @@ app.get('/get/:url', function (req, res) {
 });
 
 var trans = function (data) {
-    var re = '', template;
-    var style = cssBeautify(data.style);
-    var html = data.html;
+    var re = '';
     switch (data.type) {
     case 'html':
-        var i = '    ';
-        template = `<!DOCTYPE html>\n<html>\n${i}<head>\n${i}${i}<meta charset="utf-8">\n${i}${i}<title>${data.name}</title>\n${i}${i}<style>\n${style}\n${i}${i}</style>\n${i}</head>\n${i}<body style="margin:0">\n${i}${html}\n</body>\n</html>`;
+        var template = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${data.name}</title><style>${data.style}</style></head><body style="margin:0">${data.html}</body></html>`;
         re = htmlBeautify(template);
         break;
     case 'vue':
-        html = htmlBeautify(html);
-        template = `<template>\n${html}\n</template>\n\n<style scoped>\n${style}\n</style>`;
-        re = template;
+        var html = htmlBeautify(data.html);
+        var style = cssBeautify(data.style);
+        re = `<template>\n${html}\n</template>\n\n<style scoped>\n${style}\n</style>`;
         break;
     }
     return re;
