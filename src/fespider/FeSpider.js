@@ -417,7 +417,8 @@
         'button color': true,
         'ul margin': true,
         'h1 font': true,
-        'h2 font': true
+        'h2 font': true,
+        'figure margin': true
     };
 
     var getMetaData = function (dom) {
