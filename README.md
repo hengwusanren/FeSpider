@@ -18,16 +18,26 @@ That's it.
 
 ## Advance
 
-If you want to analyze css file contents to extract information such as `@font-face`, please set `conf.fetchFont: true`. Then start the server as below to listen to file url fetching requests on port 3663 by default.
+If you want to save the extracted content to a local file, or analyze css file contents to extract information such as `@font-face`, you shall start a server. Please select the `fetchFont` option, then start the server locally to listen to file url fetching requests from FeSpider's Chrome Devtool extension.
 
-```
-node server.js
+Just run this command in the `src` directory:
+
+```bash
+node ./server.js
 ```
 
-or in the project root directory:
+or this command in the project root directory:
 
-```
+```bash
 npm start
+```
+
+### HTTPS
+
+Before starting the server, you may need to configure the SSL cert for the server to serve HTTPS resources. Just run this command in the `src` directory:
+
+```bash
+sh ./sslcert.sh
 ```
 
 ## Benefit
