@@ -40,7 +40,7 @@ sh ./sslcert.sh
 node ./server.js
 ```
 
-此服务默认监听3663端口。FeSpider浏览器扩展从前端发送的请求的url的域就是https://127.0.0.1:3663。
+此服务默认监听3663端口。FeSpider浏览器扩展从前端发送的请求的url的域就是https://127.0.0.1:3663 。
 
 最后，在FeSpider面板中勾选相应选项。如果需要服务器对CSS文件中的字体信息进行解析，则选中`fetchFont`；如果需要服务器把抽取的内容保存为文件，则选中`pullContent`。
 
@@ -54,7 +54,7 @@ classNameUpperCase | 在为HTML元素分配CSS类名时，是否使用大写。�
 classNameModulePrefix | 在为HTML元素分配CSS类名时，是否使用一个模块名作为前缀。默认为是。
 moduleName | 为被抽取的元素起一个模块名。默认为`module`。
 recoverUrlInAttr | 是否将标签属性中的url修复为绝对路径。默认为否。
-serverHost | 本地服务的域。默认为https://127.0.0.1:3663。
+serverHost | 本地服务的域。默认为https://127.0.0.1:3663 。
 fetchFont | 是否需要服务器对CSS文件中的字体信息进行解析。默认为否。
 pullContent | 是否需要服务器把抽取的内容保存为文件。默认为否。默认保存路径为src/resources。
 generateType | 如果将内容保存为文件，则以何种形式生成文件内容。支持HTML和Vue组件两种。默认为HTML。
