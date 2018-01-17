@@ -313,6 +313,9 @@
         },
         'content': {},
         'transform': {},
+        'transform-origin': {
+            default: () => '50% 50%'
+        },
         'transition': {},
         'fill': {}
     };
@@ -371,6 +374,8 @@
                 var cs = getComputedStyle(dom, ':' + p);
                 if (cs.content) {
                     re[p] = getFullStyle(dom, p, inSvg);
+                } else {
+                    continue;
                 }
                 var domCS = getComputedStyle(dom);
                 for (var i in re[p]) {
@@ -424,7 +429,7 @@
         var metaHide = getFullMetaData(dom);
         dom.style.display = originalDisplay;
 
-        var propsKeptInNode1 = ['transform', 'transition'];
+        var propsKeptInNode1 = ['transform', 'transform-origin', 'transition'];
         var patch = function (node1, node2) {
             var nodeName = node1.nodeName;
             if (node1.style) {
@@ -675,7 +680,21 @@
             node = (!inSvg) ? iframeDoc.createElement(nodeName) : iframeDoc.createElementNS('http://www.w3.org/2000/svg', nodeName);
             iframeDoc.body.appendChild(node);
         }
-        return getComputedStyle(node);
+        var re = extendObj({}, getComputedStyle(node));
+        /*
+        var originalDisplay = re['display'];
+        node.style.display = 'none';
+        re = extendObj({}, getComputedStyle(node), {
+            display: originalDisplay
+        });
+        */
+        ['transform-origin'].forEach(p => {
+            if (!PropertyTable[p] || !PropertyTable[p].default) return;
+            var dv = PropertyTable[p].default(nodeName);
+            if (dv === false) return;
+            re[propNameCamelify(p)] = dv;
+        });
+        return re;
     };
     
     var pl_extractCommonCssFromChildren = function (dom, styleData, metaData) {
