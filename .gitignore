@@ -1,4 +1,4 @@
 *node_modules*
+package-lock.json
 src/resources
-src/fespider.pem
 src/fespider.zip

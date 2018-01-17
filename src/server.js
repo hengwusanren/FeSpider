@@ -6,28 +6,38 @@
  * @Last modified time: 2017-03-10 09:43:57
  */
 
-var conf = {
+const fs = require('fs');
+
+const conf = {
     pullDir: 'resources' // the dir name
 };
 
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
-var bodyParser = require('body-parser');
-var multipart = require('connect-multiparty');
-var multipartMiddleware = multipart();
+const https = require('https');
+const privateKey  = fs.readFileSync('sslcert/private.pem', 'utf8');
+const certificate = fs.readFileSync('sslcert/file.crt', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
 
-app.use(bodyParser.urlencoded({extended: true})); // support encoded bodies
+const httpsServer = https.createServer(credentials, app);
+httpsServer.listen(3663, function () {
+    console.log('Listening on port %d', httpsServer.address().port);
+});
 
-var superagent = require('superagent');
+const bodyParser = require('body-parser');
+const multipart = require('connect-multiparty');
+const multipartMiddleware = multipart();
 
-var fs = require('fs');
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-var cssBeautify = require('js-beautify').css;
-var htmlBeautify = require('js-beautify').html;
+const superagent = require('superagent');
+
+const cssBeautify = require('js-beautify').css;
+const htmlBeautify = require('js-beautify').html;
 
 // CORS middleware
-var allowCrossDomain = function (req, res, next) {
+const allowCrossDomain = function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
@@ -41,7 +51,7 @@ app.use(express.static(__dirname));
 app.use(express.static(__dirname + '/resources'));
 
 app.get('/get/:url', function (req, res) {
-    var url = decodeURIComponent(req.params.url);
+    let url = decodeURIComponent(req.params.url);
     console.log('get: ' + url);
     superagent.get(url)
         .then(function (pres, err) {
@@ -49,25 +59,23 @@ app.get('/get/:url', function (req, res) {
         });
 });
 
-var trans = function (data) {
-    var re = '', template;
-    var style = cssBeautify(data.style);
-    var html = data.html;
+const trans = function (data) {
+    let re = '';
     switch (data.type) {
     case 'html':
-        var i = '    ';
-        template = `<!DOCTYPE html>\n<html>\n${i}<head>\n${i}${i}<meta charset="utf-8">\n${i}${i}<title>${data.name}</title>\n${i}${i}<style>\n${style}\n${i}${i}</style>\n${i}</head>\n${i}<body style="margin:0">\n${i}${html}\n</body>\n</html>`;
+        let template = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${data.name}</title><style>${data.style}</style></head><body style="margin:0">${data.html}</body></html>`;
         re = htmlBeautify(template);
         break;
     case 'vue':
-        template = `<template>${html}</template><style scoped>${style}</style>`;
-        re = template;
+        let html = htmlBeautify(data.html);
+        let style = cssBeautify(data.style);
+        re = `<template>\n${html}\n</template>\n\n<style scoped>\n${style}\n</style>`;
         break;
     }
     return re;
 };
 
-var pathExists = function (path) {
+const pathExists = function (path) {
     try {
         fs.accessSync(path, fs.F_OK);
     } catch (e) {
@@ -76,13 +84,13 @@ var pathExists = function (path) {
     return true;
 };
 
-var mkDir = function (path) {
+const mkDir = function (path) {
     if (!pathExists(path)) fs.mkdirSync(path, 0777);
 };
 mkDir(conf.pullDir);
 
-var getNewFilePath = function (path, format) {
-    var count = '';
+const getNewFilePath = function (path, format) {
+    let count = '';
     while (pathExists(path + count + '.' + format)) {
         count = count ? (count + 1) : 1;
     }
@@ -90,7 +98,7 @@ var getNewFilePath = function (path, format) {
 };
 
 app.post('/post', multipartMiddleware, function (req, res) {
-    var data = JSON.parse(req.body.json);
+    let data = JSON.parse(req.body.json);
     console.log('/post: ' + data.name + '.' + data.type);
     fs.writeFile(getNewFilePath(conf.pullDir + '/' + data.name, data.type), trans(data), function (err) {
         if (err) throw err;
@@ -99,8 +107,4 @@ app.post('/post', multipartMiddleware, function (req, res) {
         code: 200,
         msg: 'success'
     });
-});
-
-var server = app.listen(3663, function () {
-    console.log('Listening on port %d', server.address().port);
 });
