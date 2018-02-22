@@ -25,13 +25,13 @@ If you want to save the extracted content to a local file, or analyze css file c
 Just run this command in the `src` directory:
 
 ```bash
-node ./server.js
+$ node ./server.js
 ```
 
 or this command in the project root directory:
 
 ```bash
-npm start
+$ npm start
 ```
 
 ### HTTPS
@@ -39,7 +39,7 @@ npm start
 Before starting the server, you may need to configure the SSL cert for the server to serve HTTPS resources. Just run this command in the `src` directory:
 
 ```bash
-sh ./sslcert.sh
+$ sh ./sslcert.sh
 ```
 
 ## Benefit
