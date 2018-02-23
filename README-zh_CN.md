@@ -69,4 +69,4 @@ FeSpider的局限性体现在，目前它只能解析静态的“一幕”，也
 
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2017-present, [shenfe](https://github.com/shenfe)
+Copyright © 2017-present, [shenfe](https://github.com/shenfe)
