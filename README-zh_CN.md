@@ -31,13 +31,13 @@ FeSpider提供一个浏览器扩展和一个本地服务脚本。浏览器扩展
 首先，服务需要响应HTTPS请求。如果不使用项目提供的SSL证书（sslcert文件夹），而想重新配置，则执行以下命令，并遵从提示输入必要信息：
 
 ```bash
-sh ./sslcert.sh
+$ sh ./sslcert.sh
 ```
 
-然后，可以运行server了。执行以下命令（或者在项目根路径下执行`npm start`）：
+然后，可以运行server了。执行以下命令（或者在项目根路径下命令行执行`npm start`）：
 
 ```bash
-node ./server.js
+$ node ./server.js
 ```
 
 此服务默认监听3663端口。FeSpider浏览器扩展从前端发送的请求的url的域就是https://127.0.0.1:3663 。
@@ -69,4 +69,4 @@ FeSpider的局限性体现在，目前它只能解析静态的“一幕”，也
 
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2017-present, [shenfe](https://github.com/shenfe)
+Copyright © 2017-present, [shenfe](https://github.com/shenfe)
