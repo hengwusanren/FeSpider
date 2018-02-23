@@ -52,4 +52,4 @@ You say "the class names make no sense"? Well, nobody cares elements' class name
 
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2017-present, [shenfe](https://github.com/shenfe)
+Copyright © 2017-present, [shenfe](https://github.com/shenfe)
