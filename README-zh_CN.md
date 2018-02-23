@@ -10,17 +10,9 @@ FeSpider提供一个浏览器扩展和一个本地服务脚本。浏览器扩展
 
 浏览器扩展安装后，开发者工具的Elements面板的侧面板的最后出现名为FeSpider的面板。
 
-审查元素选中需要被扒取的元素：
+审查元素选中需要被扒取的元素，在FeSpider面板点击`present`按钮，运行完成后页面上只剩下被选中元素，而其HTML/CSS已经经过清洗、合并、优化并呈现在了FeSpider面板中：
 
-![inspect](https://raw.githubusercontent.com/shenfe/FeSpider/master/readme_assets/1.png)
-
-在FeSpider面板，点击`present`按钮：
-
-![pull](https://raw.githubusercontent.com/shenfe/FeSpider/master/readme_assets/2.png)
-
-此时，页面上只剩下被选中元素，而其HTML/CSS已经经过清洗、合并、优化，并呈现在了FeSpider面板中。
-
-![review](https://raw.githubusercontent.com/shenfe/FeSpider/master/readme_assets/3.png)
+![demo](https://raw.githubusercontent.com/shenfe/FeSpider/master/readme_assets/demo.gif)
 
 就这么简单。如果上一步操作没有反应，可能是因为首次安装扩展脚本没有立即植入生效，刷新页面再次尝试即可。
 

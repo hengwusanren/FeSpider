@@ -10,11 +10,7 @@ FeSpider provides a chrome devtool extension, namely a `.crx` file, and a server
 
 Just inspect the element to be pulled out, select some options, and run it.
 
-![inspect](https://raw.githubusercontent.com/shenfe/FeSpider/master/readme_assets/1.png)
-
-![pull](https://raw.githubusercontent.com/shenfe/FeSpider/master/readme_assets/2.png)
-
-![review](https://raw.githubusercontent.com/shenfe/FeSpider/master/readme_assets/3.png)
+![demo](https://raw.githubusercontent.com/shenfe/FeSpider/master/readme_assets/demo.gif)
 
 That's it.
 
